@@ -3,11 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 1</title>
+    <title>Formulario de Pacientes</title>
+    <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
-    <h2>Hola</h2>
-    <h1>Clase 1</h1>
+    <h1>Formulario de Pacientes</h1>
+    <form id="pacienteForm">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+        
+        <label for="apellido">Apellido:</label>
+        <input type="text" id="apellido" name="apellido" required><br><br>
+        
+        <label for="medico">Médico:</label>
+        <select id="medico" name="medico" required>
+            <option value="">Seleccione un médico</option>
+            <option value="Dr. Pérez">Dr. Pérez</option>
+            <option value="Dr. García">Dr. García</option>
+            <option value="Dr. López">Dr. López</option>
+        </select><br><br>
+        
+        <button type="submit">Agregar Paciente</button>
+    </form>
+
+    <h2>Pacientes por Médico</h2>
+    <div id="pacientesPorMedico"></div>
+
     <script src="./js/main.js"></script>
 </body>
 </html>
