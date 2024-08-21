@@ -22,12 +22,30 @@
             <option value="Dr. García">Dr. García</option>
             <option value="Dr. López">Dr. López</option>
         </select><br><br>
+
+        <label for="fechaPaciente">Fecha de cita:</label>
+        <input type="date" id="fechaPaciente" name="fechaPaciente" required><br><br>
         
         <button type="submit">Agregar Paciente</button>
     </form>
 
     <h2>Pacientes por Médico</h2>
+
+    <label for="fechaSeleccionada">Seleccionar fecha:</label>
+    <input type="date" id="fechaSeleccionada" name="fechaSeleccionada">
+    <button id="cargarPacientesBtn">Cargar Pacientes</button>
+
     <div id="pacientesPorMedico"></div>
+
+    <!-- Sección de búsqueda movida al final -->
+    <h2>Buscar Paciente</h2>
+    <label for="nombreBusqueda">Nombre:</label>
+    <input type="text" id="nombreBusqueda" name="nombreBusqueda">
+    <label for="apellidoBusqueda">Apellido:</label>
+    <input type="text" id="apellidoBusqueda" name="apellidoBusqueda">
+    <button id="buscarPacienteBtn">Buscar</button>
+
+    <div id="resultadoBusqueda"></div>
 
     <script src="./js/main.js"></script>
 </body>
