@@ -28,10 +28,29 @@ document.getElementById('pacienteForm').addEventListener('submit', function(even
 
         localStorage.setItem('pacientesPorDia', JSON.stringify(pacientesPorDia));
 
-        actualizarLista(fechaPaciente);
-        limpiarFormulario();
+        Swal.fire({
+            icon: 'success',
+            title: 'Paciente agregado',
+            text: `El paciente ${nombre} ${apellido} ha sido agregado exitosamente.`,
+            confirmButtonText: 'Aceptar'
+        }).then(() => {
+            actualizarLista(fechaPaciente);
+            limpiarFormulario();
+            Toastify({
+                text: "Paciente agregado exitosamente!",
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#4CAF50",
+            }).showToast();
+        });
     } else {
-        alert('Por favor complete todos los campos.');
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Por favor complete todos los campos.',
+        });
     }
 });
 
@@ -40,7 +59,11 @@ document.getElementById('cargarPacientesBtn').addEventListener('click', function
     if (fechaSeleccionada) {
         actualizarLista(fechaSeleccionada);
     } else {
-        alert('Por favor seleccione una fecha.');
+        Swal.fire({
+            icon: 'warning',
+            title: 'Atención',
+            text: 'Por favor seleccione una fecha.',
+        });
     }
 });
 
@@ -83,21 +106,38 @@ function actualizarLista(fecha) {
 }
 
 function eliminarCita(fecha, medico, index) {
-    if (confirm('¿Está seguro que desea eliminar esta cita?')) {
-        pacientesPorDia[fecha][medico].splice(index, 1);
-        
-        if (pacientesPorDia[fecha][medico].length === 0) {
-            delete pacientesPorDia[fecha][medico];
-        }
-        
-        if (Object.keys(pacientesPorDia[fecha]).length === 0) {
-            delete pacientesPorDia[fecha];
-        }
+    Swal.fire({
+        title: '¿Está seguro?',
+        text: 'Esta acción no se puede deshacer.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            pacientesPorDia[fecha][medico].splice(index, 1);
 
-        localStorage.setItem('pacientesPorDia', JSON.stringify(pacientesPorDia));
-        
-        actualizarLista(fecha);
-    }
+            if (pacientesPorDia[fecha][medico].length === 0) {
+                delete pacientesPorDia[fecha][medico];
+            }
+
+            if (Object.keys(pacientesPorDia[fecha]).length === 0) {
+                delete pacientesPorDia[fecha];
+            }
+
+            localStorage.setItem('pacientesPorDia', JSON.stringify(pacientesPorDia));
+
+            actualizarLista(fecha);
+            Toastify({
+                text: "Cita eliminada exitosamente!",
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#4CAF50",
+            }).showToast();
+        }
+    });
 }
 
 function buscarPaciente(nombre, apellido) {
